@@ -1,0 +1,47 @@
+{% comment %}
+  Get roles and permissions matrix.
+{% endcomment %}
+{% liquid
+  assign admin_declared = false
+  assign anonymous_declared = false
+  assign authenticated_declared = false
+
+  graphql defined_roles = 'modules/permission/get_roles', per_page: 1000
+
+  assign roles = '[]' | parse_json
+
+  for row in defined_roles.records.results
+    if row.role_name == 'superadmin'
+      assign admin_declared = true
+    endif
+    if row.role_name == 'anonymous'
+      assign anonymous_declared = true
+    endif
+    if row.role_name == 'authenticated'
+      assign authenticated_declared = true
+    endif
+    assign role = '{}' | parse_json | hash_merge: role_name: row.role_name, permissions: row.permissions
+    assign roles = roles | add_to_array: role
+  endfor
+  
+  comment
+    Decalre the default roles.
+  endcomment
+  unless admin_declared
+    function all_permissions = 'modules/permission/get_permissions'
+    assign role = '{}' | parse_json | hash_merge: role_name: 'superadmin', permissions: all_permissions
+    assign roles = roles | prepend_to_array: role
+  endunless
+  unless authenticated_declared
+    assign no_permissions = '[]' | parse_json
+    assign role = '{}' | parse_json | hash_merge: role_name: 'authenticated', permissions: no_permissions
+    assign roles = roles | prepend_to_array: role
+  endunless
+  unless anonymous_declared
+    assign no_permissions = '[]' | parse_json
+    assign role = '{}' | parse_json | hash_merge: role_name: 'anonymous', permissions: no_permissions
+    assign roles = roles | prepend_to_array: role
+  endunless
+
+  return roles
+%}
