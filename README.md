@@ -6,7 +6,7 @@ Creates the possibility to handle user roles and permission on your application.
 
 ### Hooks
 
-You can read more about `hooks` at [Hook module's](https://github.com/hosszukalman/pos-module-hook) page.
+You can read more about `hooks` at [Core module's](https://github.com/hosszukalman/pos-module-core) page.
 
 #### `permission`
 
