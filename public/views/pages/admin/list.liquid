@@ -1,0 +1,24 @@
+---
+slug: admin/permissions
+---
+{% liquid
+  function current_user = 'modules/user/current'
+  include 'modules/permission/can_do_or_unauthorized', user: current_user, permission: 'permissions.manage'
+
+  function role_permissions = 'modules/permission/get_all_roles'
+%}
+{% for role in role_permissions %}
+  <div>
+    <h3>{{ role.role_name }}</h3>
+    {% if role.permissions[0] %}
+      <p><strong>Permissions</strong></p>
+      <ul>
+        {% for permission in role.permissions %}
+          <li>{{ permission }}</li>
+        {% endfor%}
+      </ul>
+    {% else %}
+      <p><strong>No permission assigned</strong></p>
+    {% endif %}
+  </div>
+{% endfor %}

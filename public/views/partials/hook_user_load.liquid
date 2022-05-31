@@ -1,0 +1,15 @@
+{% liquid
+  assign roles = '[]' | parse_json
+  if params.user.id
+    graphql user_role = 'modules/permission/get_user_roles', user_id: params.user.id
+    if user_role.records.results.first
+      assign roles = user_role.records.results.first.roles | add_to_array: 'authenticated'
+    else
+      assign roles = roles | add_to_array: 'authenticated'
+    endif
+  else
+    assign roles = roles | add_to_array: 'anonymous'
+  endif
+  assign result = '{}' | parse_json | hash_merge: roles: roles
+  return result
+%}
