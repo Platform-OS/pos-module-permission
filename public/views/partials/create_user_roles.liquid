@@ -1,0 +1,12 @@
+{% comment %}
+  Set user roles.
+  Params:
+    - user_id: string
+      the user's ID
+    - roles: array of strings
+      the roles that assigned to the user
+{% endcomment %}
+{% liquid
+  graphql user_role = 'modules/permission/create_user_roles', user_id: user_id, roles: roles
+  return user_role
+%}
