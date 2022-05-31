@@ -1,0 +1,29 @@
+{% comment %}
+  Check if a user has permission.
+  Params:
+    - user: object
+      the user object
+    - permission: string
+      the permission that we search for
+{% endcomment %}
+{% liquid
+  assign permissions = '[]' | parse_json
+  function role_permissions = 'modules/permission/get_all_roles'
+
+  assign role_tree = '{}' | parse_json
+
+  for row in role_permissions
+    hash_assign role_tree[row.role_name] = row.permissions
+  endfor
+
+  for role in user.hook_results.roles
+    assign permissions = permissions | concat: role_tree[role]
+  endfor
+  assign permissions = permissions | uniq
+
+  if permissions contains permission
+    return true
+  endif
+
+  return false
+%}
