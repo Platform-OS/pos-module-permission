@@ -1,0 +1,5 @@
+{% liquid
+  graphql roles = 'modules/permission/get_user_roles', user_id: params.user.id
+  assign user_role = '{}' | parse_json | hash_merge: user_role: roles.records.results.first
+  return user_role
+%}

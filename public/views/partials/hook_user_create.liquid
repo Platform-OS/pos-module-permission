@@ -1,0 +1,12 @@
+{% comment %}
+  Implements hook_user_create.
+{% endcomment %}
+{% liquid
+  graphql count = 'modules/user/count'
+  log count
+  if count.users.total_entries == 1
+    assign roles = '["superadmin"]' | parse_json
+    function user_role = 'modules/permission/create_user_roles', user_id: params.created_user.id, roles: roles
+  endif
+  return user_role
+%}
