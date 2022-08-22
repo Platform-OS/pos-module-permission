@@ -1,7 +1,0 @@
-{% liquid
-  function can = 'modules/permission/user_has_permission', user: user, permission: permission
-  unless can
-    render 'modules/permission/theme/401'
-    break
-  endunless
-%}
