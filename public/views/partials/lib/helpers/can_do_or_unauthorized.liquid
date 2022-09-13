@@ -13,7 +13,7 @@
 {% liquid
   function can = 'modules/permission/lib/helpers/can_do', requester: requester, entity: entity, do: do, access_callback: access_callback
   unless can
-    render 'modules/permission/theme/401'
+    render 'modules/permission/pages/401'
     break
   endunless
 %}
