@@ -1,6 +1,6 @@
 # PlatformOS Permission module
 
-Creates the possibility to handle user roles and permission on your application.
+Creates a thin access control layer that can be used by other (for example the user) modules. `can_do` and `can_do_or_unauthorized` will receive a requester entity that must have a permissions array, so requester is something similar like a requester interface that must be an implementation to get the entity's permissions.
 
 ## Usage
 
