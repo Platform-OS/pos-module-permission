@@ -21,3 +21,8 @@ You can define your custom permissions by creating `hook_permission.liquid` in y
   return permissions
 %}
 ```
+## Versioning
+
+```
+npm version major | minor | patch
+```
