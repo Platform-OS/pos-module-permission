@@ -24,5 +24,6 @@ You can define your custom permissions by creating `hook_permission.liquid` in y
 ## Versioning
 
 ```
+git fetch origin --tags
 npm version major | minor | patch
 ```
