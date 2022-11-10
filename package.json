@@ -1,6 +1,6 @@
 {
   "name": "permission",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Creates a thin access control layer that can be used by other (for example the user) modules.",
   "scripts": {
     "version": "(cd ../../ && pos-cli modules version permission -p) && git add template-values.json && auto-changelog -p && git add CHANGELOG.md"
