@@ -13,7 +13,11 @@
 {% liquid
   function can = 'modules/permission/lib/helpers/can_do', requester: requester, entity: entity, do: do, access_callback: access_callback
   unless can
-    render 'modules/permission/pages/401'
+    if requester.roles.size == 1 and requester.roles.first == 'anonymous'
+      redirect_to '/sessions/new'
+    else
+      render 'modules/permission/pages/401'
+    endif
     break
   endunless
 %}
